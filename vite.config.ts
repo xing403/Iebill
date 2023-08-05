@@ -14,10 +14,10 @@ export default ({ mode }: any) => {
     },
     server: {
       proxy: {
-        '/proxy': {
+        '/api': {
           target: env.VITE_APP_API_BASEURL,
           changeOrigin: env.VITE_OPEN_PROXY === 'true',
-          rewrite: path => path.replace(/\/proxy/, ''),
+          rewrite: path => path.replace(/\/api/, ''),
         },
       },
     },
