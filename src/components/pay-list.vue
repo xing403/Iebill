@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { dayjs } from 'element-plus'
 import pay from '~/apis/modules/pay'
 
-const props = defineProps<{
-  time: String
-}>()
 const router = useRouter()
-const time = toRef(props, 'time')
-const list = ref()
+const time = ref(dayjs(new Date().getTime()).format('YYYY-MM'))
+const list = ref([] as any)
+const total = ref({
+  income: 0,
+  expense: 0,
+})
 function goToDetail(id: number) {
   router.push({
     path: '/list/information',
@@ -15,15 +17,18 @@ function goToDetail(id: number) {
     },
   })
 }
-onMounted(() => {
-  pay.getPayList({ time: time.value }).then((res) => {
-    console.log(res.data)
-    list.value = res.data
-    res.data.forEach((element: any) => {
+function getList() {
+  pay.getPayList({ time: dayjs(time.value).format('YYYY-MM') }).then((res) => {
+    total.value = res.data.total
+    list.value = []
+    res.data.list.forEach((element: any) => {
       element.tags = element.tags.split(',').filter((e: string) => e !== '')
       list.value.push(element)
     })
   })
+}
+onMounted(() => {
+  getList()
 })
 </script>
 
@@ -31,13 +36,13 @@ onMounted(() => {
   <el-card m-10px>
     <template #header>
       <div flex="~ row gap-1" justify-between>
-        <span>{{ time }}</span>
+        <el-date-picker v-model="time" style="width: 150px;" type="month" value-format="YYYY-MM" @change="getList" />
         <div>
           <el-button link>
-            收
+            收 {{ total.income }}
           </el-button>
           <el-button link>
-            支
+            支 {{ total.expense }}
           </el-button>
         </div>
       </div>
