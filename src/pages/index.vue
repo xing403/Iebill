@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElMessage, dayjs } from 'element-plus'
-import payApi from '~/apis/modules/pay'
+import pay from '~/apis/modules/pay'
 
 const form = ref()
 const inputValue = ref('')
@@ -22,7 +22,7 @@ const rules = {
 function validateAmount(rule: any, value: any, callback: any) {
   if (value === '')
     callback(new Error('请输入金额'))
-  else if (isNaN(Number(value)))
+  else if (Number.isNaN(Number(value)))
     callback(new Error('请输入正确的金额'))
   else
     callback()
@@ -50,12 +50,18 @@ function handleSavePay() {
     if (valid) {
       const data = payForm.value
       data.data_time = dayjs(data.data_time).format('YYYY-MM-DD')
-      payApi.savePay(payForm.value).then((res: any) => {
-        console.log(res)
+      pay.savePay(payForm.value).then((res: any) => {
         ElMessage({
           message: res.message,
           type: 'success',
         })
+        payForm.value = {
+          title: '',
+          type: 'income',
+          amount: '',
+          tags: [],
+          data_time: payForm.value.data_time,
+        }
       }).catch((err) => {
         ElMessage({
           message: err.message,
@@ -90,12 +96,7 @@ function handleSavePay() {
           <el-input v-model="payForm.amount" type="number" clearable w-full />
         </el-form-item>
         <el-form-item label="日期">
-          <el-date-picker
-            v-model="payForm.data_time"
-            type="date"
-            w-full
-            placeholder="选择日期"
-          />
+          <el-date-picker v-model="payForm.data_time" type="date" w-full placeholder="选择日期" />
         </el-form-item>
         <el-form-item label="标签">
           <el-tag
