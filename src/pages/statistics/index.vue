@@ -22,16 +22,15 @@ function handleMonthly() {
         },
       },
       legend: {
-        data: ['收入', '支出'],
+        data: ['收入', '支出', '合计'],
         left: 'center',
         bottom: 0,
       },
       xAxis: {
         type: 'category',
-        // 指定使用第一列（data_time）作为x轴数据
         source: 'data_time',
       },
-      yAxis: {},
+      yAxis: [{}, {}, {}],
       series: [
         {
           name: '收入',
@@ -49,6 +48,21 @@ function handleMonthly() {
           encode: {
             x: 'data_time',
             y: 'expense',
+          },
+        },
+        {
+          name: '合计',
+          type: 'line',
+          encode: {
+            x: 'data_time',
+            y: 'sum',
+          },
+          symbol: 'circle',
+          itemStyle: {
+            color: '#1c7ed6',
+          },
+          lineStyle: {
+            color: '#1c7ed6',
           },
         },
       ],
