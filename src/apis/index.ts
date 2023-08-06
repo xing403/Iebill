@@ -17,11 +17,12 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    if (response.data.status === 1) {
+    if (response.data.code === 1) {
       if (response.data.error !== '')
         return Promise.reject(response.data)
+      return Promise.resolve(response.data)
     }
-    return Promise.resolve(response.data)
+    return Promise.reject(response.data)
   },
   (error) => {
     let message = error.message
