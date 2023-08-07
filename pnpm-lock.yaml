@@ -16,6 +16,9 @@ dependencies:
   element-plus:
     specifier: ^2.3.7
     version: 2.3.7(vue@3.3.4)
+  js-md5:
+    specifier: ^0.7.3
+    version: 0.7.3
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -36,6 +39,9 @@ devDependencies:
   '@types/axios':
     specifier: ^0.14.0
     version: 0.14.0
+  '@types/js-md5':
+    specifier: ^0.7.0
+    version: 0.7.0
   '@types/mockjs':
     specifier: ^1.0.7
     version: 1.0.7
@@ -861,6 +867,10 @@ packages:
 
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
+    dev: true
+
+  /@types/js-md5@0.7.0:
+    resolution: {integrity: sha512-4mN02EhCni6MlvCUl9bpcbMfu7R3G+ac+J37b7gKCu3tWhZc5/Ya41T+2QNR2aFt6vnMe+uTa5rFQ+nT2kl6cA==}
     dev: true
 
   /@types/json-schema@7.0.12:
@@ -4708,6 +4718,10 @@ packages:
       glob: 8.1.0
       nopt: 6.0.0
     dev: true
+
+  /js-md5@0.7.3:
+    resolution: {integrity: sha512-ZC41vPSTLKGwIRjqDh8DfXoCrdQIyBgspJVPXHBGu4nZlAEvG3nf+jO9avM9RmLiGakg7vz974ms99nEV0tmTQ==}
+    dev: false
 
   /js-string-escape@1.0.1:
     resolution: {integrity: sha512-Smw4xcfIQ5LVjAOuJCvN/zIodzA/BBSsluuoSykP+lUvScIi4U6RJLfwHet5cxFnCswUjISV8oAXaqaJDY3chg==}

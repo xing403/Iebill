@@ -24,6 +24,26 @@ const register = ref({
   check_password: '',
   remember: false,
 })
+const register_rules = {
+  username: [
+    { required: true, message: '请输入用户名', target: 'blur' },
+    { min: 5, message: '用户名长度不少于 5 位', target: 'blur' },
+  ],
+  password: [
+    { required: true, message: '请输入密码', target: 'blur' },
+    { min: 6, max: 20, message: '密码长度在6~20 位之间', target: 'blur' },
+  ],
+  check_password: [
+    { min: 6, max: 20, message: '密码长度在6~20 位之间', target: 'blur' },
+    { validator: checkPassword, trigger: 'change' },
+  ],
+}
+function checkPassword(rule: any, value: any, callback: any) {
+  if (value !== register.value.password)
+    callback(new Error('两次密码输入不一致'))
+  else
+    callback()
+}
 const loginForm = ref()
 const registerForm = ref()
 const formType = ref<'login' | 'register' | 'password'>('login')
@@ -31,11 +51,24 @@ function handleLogin() {
   loginForm.value.validate((valid: boolean) => {
     if (valid) {
       user.login(login.value).then((res: any) => {
+        ElMessage.success('登录成功')
         localStorage.setItem('token', res.data)
         localStorage.setItem('username', login.value.username)
         router.replace({
           path: '/',
         })
+      }).catch((err: any) => {
+        ElMessage.error(err.error)
+      })
+    }
+  })
+}
+function handleRegister() {
+  registerForm.value.validate((valid: boolean) => {
+    if (valid) {
+      user.register(register.value).then((res: any) => {
+        ElMessage.success(res.message)
+        formType.value = 'login'
       }).catch((err: any) => {
         ElMessage.error(err.error)
       })
@@ -82,7 +115,7 @@ function handleLogin() {
           </el-button>
         </el-form-item>
       </el-form>
-      <el-form v-if="formType === 'register'" ref="registerForm" :model="register">
+      <el-form v-if="formType === 'register'" ref="registerForm" :model="register" :rules="register_rules">
         <el-form-item prop="username">
           <el-input v-model="register.username" placeholder="用户名" />
         </el-form-item>
@@ -94,7 +127,7 @@ function handleLogin() {
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" w-full>
+          <el-button type="primary" w-full @click="handleRegister">
             注 册
           </el-button>
         </el-form-item>
