@@ -12,6 +12,7 @@ const payForm = ref({
   amount: '',
   tags: [] as string[],
   data_time: dayjs(new Date()).format('YYYY-MM-DD'),
+  detail: '',
 })
 const rules = {
   title: [{ required: true, message: '必须输入标题', target: 'blur' }],
@@ -61,6 +62,7 @@ function handleSavePay() {
           amount: '',
           tags: [],
           data_time: payForm.value.data_time,
+          detail: '',
         }
       }).catch((err) => {
         ElMessage({
@@ -112,6 +114,9 @@ function handleSavePay() {
           <el-button v-else class="button-new-tag ml-1" @click="showInput">
             新标签
           </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="payForm.detail" type="textarea" placeholder="请输入备注信息" clearable w-full :autosize="{ minRows: 3, maxRows: 5 }" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" w-full @click="handleSavePay">
