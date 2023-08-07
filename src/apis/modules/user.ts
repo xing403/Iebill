@@ -16,6 +16,5 @@ export default {
     }
     return api.post('/user/register', params)
   },
-  token: () => api.post('/user/register', {}, {}),
   information: () => api.post('/user/information', {}, {}),
 }

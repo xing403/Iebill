@@ -51,11 +51,15 @@ function handleLogin() {
   loginForm.value.validate((valid: boolean) => {
     if (valid) {
       user.login(login.value).then((res: any) => {
-        ElMessage.success('登录成功')
-        localStorage.setItem('token', res.data)
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('login_exptime', Math.floor(new Date().getTime() / 1000) + res.data.exptime)
         localStorage.setItem('username', login.value.username)
-        router.replace({
-          path: '/',
+        user.information().then((r: any) => {
+          localStorage.setItem('user-information', JSON.stringify(r.data))
+          ElMessage.success('登录成功')
+          router.replace({
+            path: '/',
+          })
         })
       }).catch((err: any) => {
         ElMessage.error(err.error)

@@ -12,7 +12,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (request) => {
     if (request.headers)
-      request.headers.user_token = localStorage.getItem('token') ?? ''
+      request.headers['user-token'] = localStorage.getItem('token') ?? ''
 
     return request
   },
