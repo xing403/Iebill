@@ -1,9 +1,19 @@
 <script setup lang="ts">
+const router = useRouter()
 const mode = ref(theme.value === 'dark')
 const login_exptime = localStorage.getItem('login_exptime') ?? 0
 const user_information = ref(JSON.parse(localStorage.getItem('user-information') ?? '{}'))
 function handleTheme(value: any) {
   theme.value = value ? 'dark' : 'light'
+}
+function handleLogout() {
+  localStorage.removeItem('user-information')
+  localStorage.removeItem('login_exptime')
+  localStorage.removeItem('username')
+  localStorage.removeItem('token')
+  router.replace({
+    path: '/login',
+  })
 }
 </script>
 
@@ -33,6 +43,13 @@ function handleTheme(value: any) {
       <div flex="~ row items-center" justify-between>
         <div>暗夜模式</div>
         <el-switch v-model="mode" @change="handleTheme" />
+      </div>
+    </el-card>
+    <el-card shadow="always">
+      <div flex="~ row items-center" justify-between>
+        <el-button type="warning" w-full @click="handleLogout">
+          退出登录
+        </el-button>
       </div>
     </el-card>
 
