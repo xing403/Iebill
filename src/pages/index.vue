@@ -9,7 +9,7 @@ const InputRef = ref()
 const payForm = ref({
   title: '',
   type: 'income',
-  amount: '',
+  amount: undefined,
   tags: [] as string[],
   data_time: dayjs(new Date()).format('YYYY-MM-DD'),
   detail: '',
@@ -59,7 +59,7 @@ function handleSavePay() {
         payForm.value = {
           title: '',
           type: 'income',
-          amount: '',
+          amount: undefined,
           tags: [],
           data_time: payForm.value.data_time,
           detail: '',
@@ -95,7 +95,7 @@ function handleSavePay() {
         </el-form-item>
 
         <el-form-item label="金额">
-          <el-input v-model="payForm.amount" type="number" clearable w-full />
+          <el-input-number v-model="payForm.amount" placeholder="0.00" clearable w-full :precision="2" controls-position="right" />
         </el-form-item>
         <el-form-item label="日期">
           <el-date-picker v-model="payForm.data_time" type="date" w-full placeholder="选择日期" />
