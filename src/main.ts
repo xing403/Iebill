@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-
+import 'virtual:svg-icons-register'
 import ElementPlus from 'element-plus'
 import { addCollection } from '@iconify/vue'
 import router from './router'

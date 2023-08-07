@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const router = useRouter()
 const mode = ref(theme.value === 'dark')
-function handleTheme(value: boolean) {
+function handleTheme(value: any) {
   theme.value = value ? 'dark' : 'light'
 }
 function handleLogin() {
@@ -24,12 +24,12 @@ function handleLogin() {
       </div>
     </el-card>
     <el-card shadow="always">
-      <div flex="~ row" justify-between>
+      <div flex="~ row items-center" justify-between>
         <div>个人信息</div>
-        <svg-icon name="carbon:right-arrow" />
+        <svg-icon name="carbon:chevron-right" />
       </div>
-      <el-divider />
-      <div flex="~ row" justify-between>
+      <el-divider my-2 />
+      <div flex="~ row items-center" justify-between>
         <div>暗夜模式</div>
         <el-switch v-model="mode" @change="handleTheme" />
       </div>

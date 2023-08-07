@@ -100,5 +100,10 @@ function handleLogin() {
         </el-form-item>
       </el-form>
     </el-card>
+    <el-card m-10px>
+      <div flex="~ row gap-1" justify-center>
+        <svg-icon name="weChat" h-10 w-10 />
+      </div>
+    </el-card>
   </the-content>
 </template>

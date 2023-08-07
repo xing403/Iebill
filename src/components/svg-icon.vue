@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 
-const props = defineProps<{
+defineProps<{
   name: string
   flip?: 'horizontal' | 'vertical' | 'both'
   rotate?: number
@@ -13,6 +13,6 @@ const props = defineProps<{
 <template>
   <Icon v-if="name.indexOf('carbon:') === 0" :icon="name" />
   <svg v-else aria-hidden="true">
-    <use :xlink:href="`#icon-${name}`" />
+    <use :xlink:href="`#icon-${name}`" h-full w-full />
   </svg>
 </template>
