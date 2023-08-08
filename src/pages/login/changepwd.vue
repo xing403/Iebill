@@ -25,7 +25,7 @@ const passwordForm = ref()
 
         <el-form-item>
           <el-button type="primary" w-full>
-            确 认 修 改
+            确认修改
           </el-button>
         </el-form-item>
       </el-form>
