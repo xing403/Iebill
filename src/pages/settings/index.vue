@@ -15,6 +15,11 @@ function handleLogout() {
     path: '/login',
   })
 }
+function goto(path: string) {
+  router.push({
+    path,
+  })
+}
 </script>
 
 <template>
@@ -35,7 +40,7 @@ function handleLogout() {
       </div>
     </el-card>
     <el-card shadow="always">
-      <div flex="~ row items-center" justify-between>
+      <div flex="~ row items-center" justify-between @click="goto('/user/information')">
         <div>个人信息</div>
         <svg-icon name="carbon:chevron-right" />
       </div>
