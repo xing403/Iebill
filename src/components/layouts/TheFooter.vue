@@ -22,7 +22,7 @@ const router = useRouter()
 
 function jump(url: string) {
   if (typeof url == 'string' && url !== 'back') {
-    router.push({
+    router.replace({
       path: url,
     })
   }
@@ -33,13 +33,13 @@ function jump(url: string) {
 </script>
 
 <template>
-  <div :class="theme" class="footer" flex="~ row" fixed bottom-0 h-15 w="100%" justify-around flex-items-center text-center>
+  <div
+    :class="theme" class="footer" flex="~ row" fixed bottom-0 h-15 w="100%" justify-around flex-items-center
+    text-center
+  >
     <div
-      v-for="item, index in nav" :key="index"
-      :href="item.url" w="20%" flex="~ col" flex-items-center
-      @click="jump(item.url)"
-      cursor-pointer
-      :class="{active: route.path == item.url}"
+      v-for="item, index in nav" :key="index" :href="item.url" w="20%" flex="~ col"
+      cursor-pointer flex-items-center :class="{ active: route.path === item.url }" @click="jump(item.url)"
     >
       <svg-icon :name="item.icon" h-6 w-6 />
       <div h-6>

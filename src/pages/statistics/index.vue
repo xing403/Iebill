@@ -29,7 +29,8 @@ function drawChartByMonthDay() {
       source: data.value.by_day,
     },
     tooltip: {
-      trigger: 'axis',
+      show: true,
+      trigger: 'item',
       axisPointer: {
         type: 'shadow',
       },
@@ -52,6 +53,9 @@ function drawChartByMonthDay() {
         encode: {
           x: 'data_time',
           y: 'income',
+        },
+        tooltip: {
+          show: true,
         },
       },
       {
@@ -101,17 +105,11 @@ onMounted(() => {
           </div>
         </div>
       </template>
-      <el-row :getter="20">
-        <el-col :span="8">
-          <el-statistic title="收入" :value="data.by_month.income" />
-        </el-col>
-        <el-col :span="8">
-          <el-statistic title="支出" :value="data.by_month.expense" />
-        </el-col>
-        <el-col :span="8">
-          <el-statistic title="累计" :value="data.by_month.sum" />
-        </el-col>
-      </el-row>
+      <div flex="~ row gap-1" justify="around">
+        <el-statistic title="收入" :value="data.by_month.income" />
+        <el-statistic title="支出" :value="data.by_month.expense" />
+        <el-statistic title="累计" :value="data.by_month.sum" />
+      </div>
     </el-card>
     <el-card>
       <template #header>

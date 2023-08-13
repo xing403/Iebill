@@ -19,7 +19,15 @@ router.beforeEach(async (to, from, next) => {
     }
   }
   else {
-    next()
+    if (to.path === '/login') {
+      next({
+        path: from.path,
+        replace: true,
+      })
+    }
+    else {
+      next()
+    }
   }
 })
 
