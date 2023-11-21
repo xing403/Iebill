@@ -1,108 +1,150 @@
+<route lang="yaml">
+meta:
+  title: 账单统计
+</route>
+
 <script setup lang="ts">
+import { useResizeObserver } from '@vueuse/core'
 import * as echarts from 'echarts'
-import { dayjs } from 'element-plus'
+import { useRoute, useRouter } from 'vue-router'
 import pay from '~/apis/modules/pay'
 
-const monthly = ref()
-const monthlyChart = ref()
+const colors = ['#EE6666', '#91CC75', '#5470C6']
+const route = useRoute()
+const router = useRouter()
+
+const monthly = ref<HTMLElement>()
+const monthlyChart = shallowRef()
+const monthlyChartTitle = ref('')
+
 const data = ref({
-  by_day: {},
+  by_day: [],
   by_month: {
     expense: 0,
     income: 0,
     sum: 0,
   },
 })
-const month = ref(dayjs(new Date().getTime()).format('YYYY-MM'))
+
+const month = ref()
+
+function handleChangeMonth(t: string) {
+  month.value = t
+  router.replace({
+    name: 'statistics',
+    query: {
+      t,
+    },
+  })
+  handleMonthly()
+}
+
 function handleMonthly() {
   pay.monthly({ month: month.value }).then((res: any) => {
+    res.data.by_day = res.data.by_day.map((item: any) => {
+      item.expense = Math.abs(item.expense)
+      item.income = Math.abs(item.income)
+      return item
+    })
     data.value = res.data
     drawChartByMonthDay()
   })
 }
+
 function drawChartByMonthDay() {
+  monthlyChartTitle.value = `${month.value} 收支统计`
   monthlyChart.value.setOption({
-    title: {
-      text: `${month.value} 收支统计`,
-    },
+    color: colors,
     dataset: {
       source: data.value.by_day,
     },
     tooltip: {
-      show: true,
-      trigger: 'item',
+      trigger: 'axis',
       axisPointer: {
-        type: 'shadow',
+        type: 'cross',
       },
     },
     legend: {
-      data: ['收入', '支出', '合计'],
+      data: ['收入', '支出'],
       left: 'center',
       bottom: 0,
     },
+
     xAxis: {
       type: 'category',
+      axisTick: {
+        alignWithLabel: true,
+      },
       source: 'data_time',
     },
-    yAxis: [{}, {}, {}],
-    series: [
-      {
-        name: '收入',
-        type: 'bar',
-        stack: 'Total',
-        encode: {
-          x: 'data_time',
-          y: 'income',
-        },
-        tooltip: {
-          show: true,
-        },
-      },
-      {
-        name: '支出',
-        type: 'bar',
-        stack: 'Total',
-        encode: {
-          x: 'data_time',
-          y: 'expense',
-        },
-      },
-      {
-        name: '合计',
-        type: 'line',
-        encode: {
-          x: 'data_time',
-          y: 'sum',
-        },
-        symbol: 'circle',
-        itemStyle: {
-          color: '#1c7ed6',
-        },
+    yAxis: [{
+      type: 'value',
+      name: '收入',
+      position: 'left',
+      alignTicks: true,
+      axisLine: {
+        show: true,
         lineStyle: {
-          color: '#1c7ed6',
+          color: colors[0],
         },
       },
-    ],
+    }, {
+      type: 'value',
+      name: '支出',
+      position: 'right',
+      alignTicks: true,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[1],
+        },
+      },
+    }],
+    series: [{
+      name: '收入',
+      type: 'line',
+      yAxisIndex: 0,
+      encode: {
+        x: 'data_time',
+        y: 'income',
+      },
+    }, {
+      name: '支出',
+      type: 'line',
+      yAxisIndex: 1,
+      encode: {
+        x: 'data_time',
+        y: 'expense',
+      },
+    }],
   })
 }
+
 onMounted(() => {
+  if (dayjs(route.query?.t as string).isValid())
+    month.value = dayjs(route.query?.t as string).format('YYYY-MM')
+
+  else
+    month.value = dayjs(new Date().getTime()).format('YYYY-MM')
+
   monthlyChart.value = echarts.init(monthly.value)
   handleMonthly()
+})
+
+useResizeObserver(monthly, () => {
+  monthlyChart.value.resize()
 })
 </script>
 
 <template>
-  <the-header :back="false" title="统计" />
-  <the-content pb-15 pl-1 pr-1 pt-60px>
-    <el-card my-2>
+  <div flex="~ col gap-1">
+    <el-card>
       <template #header>
         <div flex="~ row gap-1" justify-between flex-items-center>
-          <div text-1.5em font-600>
+          <div text-1.2em font-600>
             本月收支
           </div>
-          <div w-150px>
-            <el-date-picker v-model="month" type="month" value-format="YYYY-MM" @change="handleMonthly" />
-          </div>
+          <el-date-picker v-model="month" type="month" value-format="YYYY-MM" @change="handleChangeMonth" />
         </div>
       </template>
       <div flex="~ row gap-1" justify="around">
@@ -113,10 +155,17 @@ onMounted(() => {
     </el-card>
     <el-card>
       <template #header>
-        <el-date-picker v-model="month" type="month" value-format="YYYY-MM" @change="handleMonthly" />
+        <div flex="~ row gap-1" justify-between flex-items-center>
+          <div text-1.2em font-600>
+            {{ monthlyChartTitle }}
+          </div>
+          <el-date-picker v-model="month" type="month" value-format="YYYY-MM" @change="handleChangeMonth" />
+        </div>
       </template>
-      <div ref="monthly" h-300px w-full />
+      <div v-show="data.by_day.length > 0" ref="monthly" h-350px />
+      <div v-show="data.by_day.length === 0" h-350px>
+        <el-empty :image-size="200" />
+      </div>
     </el-card>
-  </the-content>
-  <the-footer />
+  </div>
 </template>

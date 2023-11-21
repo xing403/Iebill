@@ -1,0 +1,14 @@
+.el-header {
+  --el-header-padding: 0;
+}
+
+.el-main {
+  --el-main-padding: 10px;
+}
+
+.el-footer {
+  --el-footer-padding: 0;
+}
+.common-layout{
+  height: 100%;
+}

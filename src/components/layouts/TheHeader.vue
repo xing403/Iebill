@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  title?: string
-  back?: boolean
+  title?: string | any
+  back?: boolean | any
 }>(), {
   title: '未命名',
   back: true,
@@ -16,12 +16,10 @@ const back = toRef(props, 'back')
 
 <template>
   <div
-    :class="theme" flex="~ row" w="100%"
-    border-b="1px dark:stone-6 light-2  solid"
-
-    fixed left-0 top-0 z-10 mb-2 h-15 flex-items-center shadow
+    :class="theme" flex="~ row"
+    h-15 flex-items-center shadow
   >
-    <svg-icon v-if="back" name="carbon:chevron-left" h-6 w-6 cursor="pointer" @click="jump" />
+    <svg-icon v-if="back" ml-2 name="carbon:chevron-left" h-6 w-6 cursor="pointer" @click="jump" />
     <div ml-2 flex-1 text-center>
       {{ title }}
     </div>

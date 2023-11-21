@@ -5,7 +5,7 @@ const nav = ref([{
   icon: 'carbon:home',
   url: '/',
 }, {
-  name: '详情',
+  name: '列表',
   icon: 'carbon:align-box-top-left',
   url: '/list',
 }, {
@@ -20,7 +20,7 @@ const nav = ref([{
 
 const router = useRouter()
 
-function jump(url: string) {
+function jump(url: string | number) {
   if (typeof url == 'string' && url !== 'back') {
     router.replace({
       path: url,

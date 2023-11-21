@@ -1,3 +1,8 @@
+<route lang="yaml">
+meta:
+  title: 个人设置
+</route>
+
 <script setup lang="ts">
 const router = useRouter()
 const mode = ref(theme.value === 'dark')
@@ -23,8 +28,7 @@ function goto(path: string) {
 </script>
 
 <template>
-  <the-header :back="false" title="设置" />
-  <the-content pb-15 pl-1 pr-1 pt-60px>
+  <div flex="~ col gap-2">
     <el-card shadow="always">
       <div v-if="new Date().getTime() / 1000 <= Number(login_exptime)" flex="~ row" justify-center>
         <template v-if="user_information.avatar">
@@ -57,8 +61,5 @@ function goto(path: string) {
         </el-button>
       </div>
     </el-card>
-
-    <div />
-  </the-content>
-  <the-footer />
+  </div>
 </template>

@@ -6,6 +6,7 @@ const router = createRouter({
   routes,
 })
 router.beforeEach(async (to, from, next) => {
+  useTitle(to.meta.title as string || 'lebill')
   const login_exptime = localStorage.getItem('login_exptime')
   if (new Date().getTime() / 1000 > Number(login_exptime)) {
     if (to.path !== '/login') {

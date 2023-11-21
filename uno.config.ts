@@ -4,13 +4,14 @@ import {
   presetIcons,
   presetUno,
   presetWebFonts,
+  transformerDirectives,
 } from 'unocss'
 
 export default defineConfig({
   shortcuts: [
     ['dark', 'font-sans dark:text-white dark:bg-hex-1d1e1f'],
     ['light', 'bg-white font-sans text-dark-800'],
-    ['active','text-light-blue-600']
+    ['active', 'text-light-blue-600'],
   ],
   presets: [
     presetUno(),
@@ -26,5 +27,8 @@ export default defineConfig({
         mono: 'DM Mono',
       },
     }),
+  ],
+  transformers: [
+    transformerDirectives(),
   ],
 })

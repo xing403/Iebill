@@ -9,12 +9,16 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Layouts: typeof import('./src/components/layouts/index.vue')['default']
     PayList: typeof import('./src/components/pay-list.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StatisticInfo: typeof import('./src/components/statistics/statistic-info.vue')['default']
     SvgIcon: typeof import('./src/components/svg-icon.vue')['default']
     TheContent: typeof import('./src/components/layouts/TheContent.vue')['default']
     TheFooter: typeof import('./src/components/layouts/TheFooter.vue')['default']
     TheHeader: typeof import('./src/components/layouts/TheHeader.vue')['default']
+    TheSidebar: typeof import('./src/components/layouts/TheSidebar.vue')['default']
+    TheSiderbar: typeof import('./src/components/layouts/TheSiderbar.vue')['default']
   }
 }

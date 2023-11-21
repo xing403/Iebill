@@ -9,7 +9,6 @@ const passwordForm = ref()
 </script>
 
 <template>
-  <the-header title="修改密码" />
   <the-content pt-60px>
     <el-card m-10px>
       <el-form ref="passwordForm" :model="changepwd">

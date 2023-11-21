@@ -9,6 +9,8 @@ import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/theme-chalk/display.css'
 import 'uno.css'
+import './assets/element-plus.css'
+import './assets/style.css'
 
 const app = createApp(App)
 async function loadIconsSvg() {

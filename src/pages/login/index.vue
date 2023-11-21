@@ -1,3 +1,8 @@
+<route lang="yaml">
+meta:
+  title: 登录
+</route>
+
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import user from '~/apis/modules/user'
