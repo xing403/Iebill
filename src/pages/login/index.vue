@@ -1,6 +1,7 @@
 <route lang="yaml">
 meta:
   title: 登录
+  layout: false
 </route>
 
 <script setup lang="ts">
@@ -87,9 +88,8 @@ function handleRegister() {
 </script>
 
 <template>
-  <the-header :back="false" title="登录" />
-  <the-content pt-60px>
-    <el-card m-10px>
+  <div flex="~ col items-center" h-full w-full>
+    <el-card w-md>
       <template #header>
         <div flex="~ row gap-1" justify-center>
           <el-radio-group v-model="formType" size="large">
@@ -112,7 +112,7 @@ function handleRegister() {
         <el-form-item prop="remember">
           <div flex="~ row" w-full justify-between>
             <el-checkbox v-model="login.remember" label="记住密码" />
-            <el-link href="login/changepwd" type="primary">
+            <el-link href="/login/change-password" type="primary">
               忘记密码
             </el-link>
           </div>
@@ -142,10 +142,10 @@ function handleRegister() {
         </el-form-item>
       </el-form>
     </el-card>
-    <el-card m-10px>
-      <div flex="~ row gap-1" justify-center>
-        <svg-icon name="weChat" h-10 w-10 />
-      </div>
-    </el-card>
-  </the-content>
+  </div>
+  <!-- <el-card m-10px>
+    <div flex="~ row gap-1" justify-center>
+      <svg-icon name="weChat" h-10 w-10 />
+    </div>
+  </el-card> -->
 </template>

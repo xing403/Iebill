@@ -7,7 +7,7 @@ meta:
 import { useResizeObserver } from '@vueuse/core'
 import * as echarts from 'echarts'
 import { useRoute, useRouter } from 'vue-router'
-import pay from '~/apis/modules/pay'
+import bill_api from '~/apis/modules/bill'
 
 const colors = ['#EE6666', '#91CC75', '#5470C6']
 const route = useRoute()
@@ -40,7 +40,7 @@ function handleChangeMonth(t: string) {
 }
 
 function handleMonthly() {
-  pay.monthly({ month: month.value }).then((res: any) => {
+  bill_api.getBillStatisticsByMonthly({ month: month.value }).then((res: any) => {
     res.data.by_day = res.data.by_day.map((item: any) => {
       item.expense = Math.abs(item.expense)
       item.income = Math.abs(item.income)

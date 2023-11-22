@@ -1,6 +1,6 @@
 <template>
   <el-container class="common-layout">
-    <el-aside width="200px" class="hidden-sm-and-down">
+    <el-aside v-if="$route.meta?.layout !== false" width="200px" class="hidden-sm-and-down">
       <the-sidebar />
     </el-aside>
     <el-container>
@@ -12,7 +12,7 @@
         <router-view />
       </el-main>
 
-      <el-footer class="hidden-md-and-up">
+      <el-footer v-if="$route.meta?.layout !== false" class="hidden-md-and-up">
         <the-footer />
       </el-footer>
     </el-container>
