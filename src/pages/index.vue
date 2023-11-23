@@ -5,8 +5,8 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { ElMessage, dayjs } from 'element-plus'
-import bill_api from '~/apis/modules/bill'
+import { ElMessage, dayjs } from 'element-plus';
+import bill_api from '~/apis/modules/bill';
 
 const form = ref()
 const inputValue = ref('')
@@ -15,9 +15,9 @@ const InputRef = ref()
 const bill_form = ref({
   title: '',
   type: 'income',
-  amount: undefined,
+  amount: 0,
   tags: [] as string[],
-  data_time: dayjs(new Date()).format('YYYY-MM-DD'),
+  data_time: '',
   detail: '',
 })
 const rules = {
@@ -72,7 +72,7 @@ function handleSavePay() {
       <el-form-item label="标题" prop="title">
         <el-input v-model="bill_form.title" clearable />
       </el-form-item>
-      <el-form-item label="类型">
+      <el-form-item label="类型" prop="type">
         <el-radio-group v-model="bill_form.type">
           <el-radio label="income">
             收入
@@ -83,29 +83,26 @@ function handleSavePay() {
         </el-radio-group>
       </el-form-item>
 
-      <el-form-item label="金额">
-        <el-input-number v-model="bill_form.amount" placeholder="0.00" clearable w-full :precision="2" controls-position="right" />
+      <el-form-item label="金额" prop="amount">
+        <el-input-number v-model="bill_form.amount" :min="0" :controls="false" clearable w-full :precision="2" />
       </el-form-item>
-      <el-form-item label="日期">
+      <el-form-item label="日期" prop="data_time">
         <el-date-picker v-model="bill_form.data_time" type="date" w-full placeholder="选择日期" />
       </el-form-item>
-      <el-form-item label="标签">
-        <el-tag
-          v-for="tag in bill_form.tags" :key="tag" class="mx-1" closable :disable-transitions="false"
-          @close="handleClose(tag)"
-        >
+      <el-form-item label="标签" prop="tags">
+        <el-tag v-for="tag in bill_form.tags" :key="tag" class="mx-1" closable :disable-transitions="false"
+          @close="handleClose(tag)">
           {{ tag }}
         </el-tag>
-        <el-input
-          v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ml-1 w-20"
-          @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"
-        />
+        <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ml-1 w-20"
+          @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
         <el-button v-else class="button-new-tag ml-1" @click="showInput">
           新标签
         </el-button>
       </el-form-item>
-      <el-form-item>
-        <el-input v-model="bill_form.detail" type="textarea" placeholder="请输入备注信息" clearable w-full :autosize="{ minRows: 3, maxRows: 5 }" />
+      <el-form-item prop="detail">
+        <el-input v-model="bill_form.detail" type="textarea" placeholder="请输入备注信息" clearable w-full
+          :autosize="{ minRows: 3, maxRows: 5 }" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" w-full @click="handleSavePay">

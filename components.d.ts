@@ -10,12 +10,8 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BillItem: typeof import('./src/components/bill-item.vue')['default']
-    Layouts: typeof import('./src/components/layouts/index.vue')['default']
-    Monthly: typeof import('./src/components/statistics/monthly.vue')['default']
-    PayList: typeof import('./src/components/pay-list.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    StatisticInfo: typeof import('./src/components/statistics/statistic-info.vue')['default']
     StatisticsMonthly: typeof import('./src/components/statistics/statisticsMonthly.vue')['default']
     StatisticsTotal: typeof import('./src/components/statistics/statisticsTotal.vue')['default']
     StatisticsYearly: typeof import('./src/components/statistics/statisticsYearly.vue')['default']
@@ -24,6 +20,5 @@ declare module '@vue/runtime-core' {
     TheFooter: typeof import('./src/components/layouts/TheFooter.vue')['default']
     TheHeader: typeof import('./src/components/layouts/TheHeader.vue')['default']
     TheSidebar: typeof import('./src/components/layouts/TheSidebar.vue')['default']
-    TheSiderbar: typeof import('./src/components/layouts/TheSiderbar.vue')['default']
   }
 }
