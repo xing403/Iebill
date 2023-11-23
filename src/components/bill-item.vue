@@ -52,22 +52,24 @@ onLongPress(
 </script>
 
 <template>
-  <div ref="htmlRefHook" flex="~ row gap-1" mt-2 p-3 b-b="1px solid #fff" hover="bg-gray-400" @click="goToDetail(bill.id)">
-    <div flex="1 col gpa-1 grow-1" w-0 cursor="pointer">
-      <el-link text-truncate text-size-xl>
-        {{ bill.title }}
-      </el-link>
-      <div v-if="bill.tags.length > 0" class="tags" items-center text-truncate pb-1 text-size-sm text-warmgray-500 flex="~ row gap-1">
-        <el-tag v-for="tag, index in bill.tags" :key="index" type="info" round class="tag">
-          <span>{{ tag }}</span>
-        </el-tag>
+  <div class="bill-item">
+    <div ref="htmlRefHook" flex="~ row gap-1" mt-2 p-3 b-b="1px solid #fff" hover="bg-gray-400" @click="goToDetail(bill.id)">
+      <div flex="1 col gpa-1 grow-1" w-0 cursor="pointer">
+        <el-link text-truncate text-size-xl>
+          {{ bill.title }}
+        </el-link>
+        <div v-if="bill.tags.length > 0" class="tags" items-center text-truncate pb-1 text-size-sm text-warmgray-500 flex="~ row gap-1">
+          <el-tag v-for="tag, index in bill.tags" :key="index" type="info" round class="tag">
+            <span>{{ tag }}</span>
+          </el-tag>
+        </div>
+      </div>
+      <div h-10 text-size-2xl lh-10>
+        {{ bill.amount.toFixed(2) }}
       </div>
     </div>
-    <div h-10 text-size-2xl lh-10>
-      {{ bill.amount.toFixed(2) }}
-    </div>
+    <el-divider border-style="dashed" />
   </div>
-  <el-divider border-style="dashed" />
 </template>
 
 <style scoped>

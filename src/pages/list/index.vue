@@ -25,6 +25,9 @@ function getTime(t: string) {
   time.value = t
   getList()
 }
+function deleteBillItem(id: number) {
+  list.value.splice(list.value.findIndex((e: any) => e.id === id), 1)
+}
 function getList() {
   bill_api.getBillList({ time: dayjs(time.value).format('YYYY-MM') }).then((res) => {
     total.value = res.data.total
@@ -62,11 +65,25 @@ onMounted(() => {
         </div>
       </div>
     </template>
-    <template v-if="showList.length > 0">
-      <bill-item v-for="item, index in showList" :key="index" :bill="item" @deleted="getList" />
-    </template>
+    <TransitionGroup v-if="showList.length > 0" name="fade" tag="div">
+      <bill-item v-for="item in showList" :key="item.id" :bill="item" @deleted="deleteBillItem" />
+    </TransitionGroup>
     <div v-else>
       <el-empty :image-size="200" />
     </div>
   </el-card>
 </template>
+
+<style lang="postcss" scoped>
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+</style>

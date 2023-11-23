@@ -31,9 +31,19 @@ export default {
    */
   information: (data: any) => api.post('/bill/information', data, {}),
 
-  /** 获取每月账单统计
+  /** 获取月账单
    * @param data
    * @returns
    */
   getBillStatisticsByMonthly: (data: any) => api.post('/bill/monthly', data, {}),
+  /** 获取月账单
+   * @param data
+   * @returns
+   */
+  getBillStatisticsByYearly: (data: any) => api.post('/bill/amountByYear', data, {}),
+  /** 获取月账单
+   * @param data
+   * @returns
+   */
+  totalByMonth: (data: any) => api.post('/bill/totalByMonth', data, {}),
 }
