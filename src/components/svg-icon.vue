@@ -12,6 +12,8 @@ defineProps<{
 
 <template>
   <Icon v-if="name.indexOf('carbon:') === 0" :icon="name" />
+  <Icon v-else-if="name.indexOf('mdi:') === 0" :icon="name" />
+  <Icon v-else-if="name.indexOf('tabler:') === 0" :icon="name" />
   <svg v-else aria-hidden="true">
     <use :xlink:href="`#icon-${name}`" h-full w-full />
   </svg>

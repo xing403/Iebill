@@ -88,64 +88,67 @@ function handleRegister() {
 </script>
 
 <template>
-  <div flex="~ col items-center" h-full w-full>
-    <el-card w-md>
-      <template #header>
-        <div flex="~ row gap-1" justify-center>
-          <el-radio-group v-model="formType" size="large">
-            <el-radio-button label="login">
-              登录
-            </el-radio-button>
-            <el-radio-button label="register">
-              注册
-            </el-radio-button>
-          </el-radio-group>
-        </div>
-      </template>
-      <el-form v-if="formType === 'login'" ref="loginForm" :rules="login_rules" :model="login">
-        <el-form-item prop="username">
-          <el-input v-model="login.username" placeholder="用户名" />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="login.password" placeholder="密码" type="password" />
-        </el-form-item>
-        <el-form-item prop="remember">
-          <div flex="~ row" w-full justify-between>
-            <el-checkbox v-model="login.remember" label="记住密码" />
-            <el-link href="/login/change-password" type="primary">
-              忘记密码
-            </el-link>
+  <div flex="~ row items-center" h-full w-full justify-end>
+    <div h-full w-sm flex="~ row items-center">
+      <el-card w-sm>
+        <template #header>
+          <div flex="~ row gap-1" justify-center>
+            <el-radio-group v-model="formType" size="large">
+              <el-radio-button label="login">
+                登录
+              </el-radio-button>
+              <el-radio-button label="register">
+                注册
+              </el-radio-button>
+            </el-radio-group>
           </div>
-        </el-form-item>
+        </template>
+        <el-form v-if="formType === 'login'" ref="loginForm" :rules="login_rules" :model="login">
+          <el-form-item prop="username">
+            <el-input v-model="login.username" placeholder="用户名" />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input v-model="login.password" placeholder="密码" type="password" />
+          </el-form-item>
+          <el-form-item prop="remember">
+            <div flex="~ row" w-full justify-between>
+              <el-checkbox v-model="login.remember" label="记住密码" />
+              <el-link href="/login/change-password" type="primary">
+                忘记密码
+              </el-link>
+            </div>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" w-full @click="handleLogin">
-            登 陆
-          </el-button>
-        </el-form-item>
-      </el-form>
-      <el-form v-if="formType === 'register'" ref="registerForm" :model="register" :rules="register_rules">
-        <el-form-item prop="username">
-          <el-input v-model="register.username" placeholder="用户名" />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="register.password" placeholder="密码" type="password" />
-        </el-form-item>
-        <el-form-item prop="check_password">
-          <el-input v-model="register.check_password" placeholder="确认密码" type="password" />
-        </el-form-item>
+          <el-form-item>
+            <el-button type="primary" w-full @click="handleLogin">
+              登 陆
+            </el-button>
+          </el-form-item>
+        </el-form>
+        <el-form v-if="formType === 'register'" ref="registerForm" :model="register" :rules="register_rules">
+          <el-form-item prop="username">
+            <el-input v-model="register.username" placeholder="用户名" />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input v-model="register.password" placeholder="密码" type="password" />
+          </el-form-item>
+          <el-form-item prop="check_password">
+            <el-input v-model="register.check_password" placeholder="确认密码" type="password" />
+          </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" w-full @click="handleRegister">
-            注 册
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-  </div>
-  <!-- <el-card m-10px>
-    <div flex="~ row gap-1" justify-center>
-      <svg-icon name="weChat" h-10 w-10 />
+          <el-form-item>
+            <el-button type="primary" w-full @click="handleRegister">
+              注 册
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </el-card>
     </div>
-  </el-card> -->
+  </div>
 </template>
+
+<style lang="postcss">
+.el-main{
+  --el-main-padding: 0;
+}
+</style>

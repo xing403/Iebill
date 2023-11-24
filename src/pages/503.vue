@@ -1,12 +1,12 @@
 <route lang="yaml">
 meta:
-  title: 404
+  title: 系统维护中
   layout: false
 </route>
 
 <template>
   <div flex="~ col" text="2xl" mt-30 items-center justify-center>
-    <svg-icon name="tabler:error-404" text="9xl" />
-    <span>not found</span>
+    <svg-icon name="mdi:hammer-wrench" text="9xl" />
+    <span>the system is being repaired</span>
   </div>
 </template>

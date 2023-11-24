@@ -4,7 +4,7 @@
       <the-sidebar />
     </el-aside>
     <el-container>
-      <el-header>
+      <el-header v-if="$route.meta?.layout !== false">
         <the-header :back="$route.meta?.hasBack ?? false" :title="$route.meta.title" />
       </el-header>
 

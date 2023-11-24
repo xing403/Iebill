@@ -20,11 +20,8 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    if (response.data.code === 1) {
-      if (response.data.error !== '')
-        return Promise.reject(response.data)
+    if (response.data.code === 1)
       return Promise.resolve(response.data)
-    }
     return Promise.reject(response.data)
   },
   (error) => {
