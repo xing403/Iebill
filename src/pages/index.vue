@@ -5,8 +5,8 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { ElMessage, dayjs } from 'element-plus';
-import bill_api from '~/apis/modules/bill';
+import { ElMessage, dayjs } from 'element-plus'
+import bill_api from '~/apis/modules/bill'
 
 const form = ref()
 const inputValue = ref('')
@@ -90,19 +90,25 @@ function handleSavePay() {
         <el-date-picker v-model="bill_form.data_time" type="date" w-full placeholder="选择日期" />
       </el-form-item>
       <el-form-item label="标签" prop="tags">
-        <el-tag v-for="tag in bill_form.tags" :key="tag" class="mx-1" closable :disable-transitions="false"
-          @close="handleClose(tag)">
+        <el-tag
+          v-for="tag in bill_form.tags" :key="tag" class="mx-1" closable :disable-transitions="false"
+          @close="handleClose(tag)"
+        >
           {{ tag }}
         </el-tag>
-        <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ml-1 w-20"
-          @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+        <el-input
+          v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ml-1 w-20"
+          @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"
+        />
         <el-button v-else class="button-new-tag ml-1" @click="showInput">
           新标签
         </el-button>
       </el-form-item>
       <el-form-item prop="detail">
-        <el-input v-model="bill_form.detail" type="textarea" placeholder="请输入备注信息" clearable w-full
-          :autosize="{ minRows: 3, maxRows: 5 }" />
+        <el-input
+          v-model="bill_form.detail" type="textarea" placeholder="请输入备注信息" clearable w-full
+          :autosize="{ minRows: 3, maxRows: 5 }"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" w-full @click="handleSavePay">

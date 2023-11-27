@@ -57,6 +57,7 @@ function handleLogin() {
   loginForm.value.validate((valid: boolean) => {
     if (valid) {
       user.login(login.value).then((res: any) => {
+        remember_me()
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('login_exptime', Math.floor(new Date().getTime() / 1000) + res.data.exptime)
         localStorage.setItem('username', login.value.username)
@@ -73,6 +74,15 @@ function handleLogin() {
     }
   })
 }
+
+function remember_me() {
+  if (login.value.remember)
+    localStorage.setItem('remember_me', 'true')
+
+  else
+    localStorage.removeItem('remember_me')
+}
+
 function handleRegister() {
   registerForm.value.validate((valid: boolean) => {
     if (valid) {
@@ -85,25 +95,19 @@ function handleRegister() {
     }
   })
 }
+
+onMounted(() => {
+  if (localStorage.getItem('remember_me') === 'true')
+    login.value.remember = true
+})
 </script>
 
 <template>
   <div flex="~ row items-center" h-full w-full justify-end>
-    <div h-full w-sm flex="~ row items-center">
-      <el-card w-sm>
-        <template #header>
-          <div flex="~ row gap-1" justify-center>
-            <el-radio-group v-model="formType" size="large">
-              <el-radio-button label="login">
-                登录
-              </el-radio-button>
-              <el-radio-button label="register">
-                注册
-              </el-radio-button>
-            </el-radio-group>
-          </div>
-        </template>
-        <el-form v-if="formType === 'login'" ref="loginForm" :rules="login_rules" :model="login">
+    <div flex="~ row items-center justify-center" h-full w-full md-w-md dark:bg-hex-1d1e1f>
+      <div v-if="formType === 'login'" w-sm>
+        <div mb-8 text-center text-2xl v-text="'登 录'" />
+        <el-form ref="loginForm" :rules="login_rules" :model="login">
           <el-form-item prop="username">
             <el-input v-model="login.username" placeholder="用户名" />
           </el-form-item>
@@ -113,19 +117,24 @@ function handleRegister() {
           <el-form-item prop="remember">
             <div flex="~ row" w-full justify-between>
               <el-checkbox v-model="login.remember" label="记住密码" />
-              <el-link href="/login/change-password" type="primary">
-                忘记密码
-              </el-link>
+              <el-link href="/login/change-password" type="primary" v-text="'忘记密码'" />
             </div>
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" w-full @click="handleLogin">
-              登 陆
-            </el-button>
+            <el-button type="primary" w-full @click="handleLogin" v-text="'登录'" />
+          </el-form-item>
+
+          <el-form-item>
+            <div flex="~ row" w-full justify-center>
+              还没有账号? <el-link href="" type="primary" @click="formType = 'register'" v-text="'去注册'" />
+            </div>
           </el-form-item>
         </el-form>
-        <el-form v-if="formType === 'register'" ref="registerForm" :model="register" :rules="register_rules">
+      </div>
+      <div v-else-if="formType === 'register'" w-sm>
+        <div mb-8 text-center text-2xl v-text="'注册'" />
+        <el-form ref="registerForm" :model="register" :rules="register_rules">
           <el-form-item prop="username">
             <el-input v-model="register.username" placeholder="用户名" />
           </el-form-item>
@@ -137,12 +146,15 @@ function handleRegister() {
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" w-full @click="handleRegister">
-              注 册
-            </el-button>
+            <el-button type="primary" w-full @click="handleRegister" v-text="'注 册'" />
+          </el-form-item>
+          <el-form-item>
+            <div flex="~ row" w-full justify-center>
+              已有帐号 <el-link href="" type="primary" @click="formType = 'login'" v-text="'去登录'" />
+            </div>
           </el-form-item>
         </el-form>
-      </el-card>
+      </div>
     </div>
   </div>
 </template>

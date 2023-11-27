@@ -3,4 +3,5 @@ body,
 #app {
   width: 100%;
   height: 100%;
+  --at-apply: dark:bg-hex-1c1c1e bg-stone-200;
 }

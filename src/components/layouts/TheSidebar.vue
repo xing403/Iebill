@@ -20,7 +20,7 @@ const nav = ref([{
 
 <template>
   <div :class="theme" class="sidebar" h-full>
-    <el-menu router :default-active="$router.currentRoute.value.fullPath">
+    <el-menu router :default-active="$router.currentRoute.value.fullPath" h-full>
       <el-menu-item v-for="item, index in nav" :key="index" :index="item.url">
         <el-icon><svg-icon :name="item.icon" /></el-icon>
         <span>{{ item.name }}</span>

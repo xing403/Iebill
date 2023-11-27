@@ -16,8 +16,9 @@ const passwordForm = ref()
 
 <template>
   <div flex="~ row items-center" h-full w-full justify-end>
-    <div h-full w-sm flex="~ row items-center">
-      <el-card w-sm>
+    <div h-full w-full md-w-md flex="~ row items-center justify-center" dark:bg-hex-1D1E1F>
+      <div w-sm>
+        <div mb-8 text-center text-2xl v-text="'修改密码'" />
         <el-form ref="passwordForm" :model="changepwd">
           <el-form-item prop="username">
             <el-input v-model="changepwd.username" placeholder="用户名" />
@@ -28,21 +29,16 @@ const passwordForm = ref()
           <el-form-item prop="check_password">
             <el-input v-model="changepwd.check_password" placeholder="确认密码" type="password" />
           </el-form-item>
+          <el-form-item>
+            <el-button type="primary" w-full v-text="'确认修改'" />
+          </el-form-item>
           <el-form-item prop="check_password">
-            <div flex="~ row" w-full justify-between>
-              <div />
-              <el-link href="/login" type="primary">
-                去登陆
-              </el-link>
+            <div flex="~ row" w-full justify-center>
+              <el-link href="/login" type="primary" v-text="'去登陆'" />
             </div>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" w-full>
-              确认修改
-            </el-button>
-          </el-form-item>
         </el-form>
-      </el-card>
+      </div>
     </div>
   </div>
 </template>

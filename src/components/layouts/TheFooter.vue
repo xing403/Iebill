@@ -35,11 +35,11 @@ function jump(url: string | number) {
 <template>
   <div
     :class="theme" class="footer" flex="~ row" fixed bottom-0 h-15 w="100%" justify-around flex-items-center
-    text-center
+    border-t="1px dark:color-hex-414243 color-hex-E4E7ED" text-center
   >
     <div
-      v-for="item, index in nav" :key="index" :href="item.url" w="20%" flex="~ col"
-      cursor-pointer flex-items-center :class="{ active: route.path === item.url }" @click="jump(item.url)"
+      v-for="item, index in nav" :key="index" :href="item.url" w="20%" flex="~ col" cursor-pointer flex-items-center
+      :class="{ active: route.path === item.url }" @click="jump(item.url)"
     >
       <svg-icon :name="item.icon" h-6 w-6 />
       <div h-6>
