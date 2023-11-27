@@ -1,1 +1,2 @@
-# 支付统计 demo
+# 支付统计
+keep track of expenses
